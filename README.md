@@ -1,10 +1,10 @@
 # humanizer-chatbot-id
 
-Skill humanizer khusus **balasan chatbot berbahasa Indonesia** — membuat balasan bot terdengar seperti manusia yang sedang chat, bukan seperti AI.
+Skill **suara chatbot berbahasa Indonesia** — begitu dimuat, setiap balasan bot langsung terdengar seperti manusia yang sedang chat. Bukan alat rewrite draf; tidak ada tahap "tulis versi AI dulu lalu perbaiki". Bot berpikir dengan pola chat natural dari awal.
 
 Fork dari [blader/humanizer](https://github.com/blader/humanizer) (53.600+ stars, MIT), di-refactor total: pola strukturalnya dipertahankan, tapi seluruh kalibrasi diganti dengan **riset lapangan cara orang Indonesia mengetik di chat**.
 
-> **English summary:** A humanizer skill for Indonesian chatbot replies. Forked from blader/humanizer and recalibrated with field research on how Indonesians actually type in chat (WhatsApp, Facebook, Reddit, Kaskus, Threads). Detects AI tells in bot replies (essay answers, template openers/closers, zero abbreviations, wrong register) and rewrites them to sound like a real person chatting.
+> **English summary:** A voice skill for Indonesian chatbots. Once loaded, every reply comes out sounding like a real person chatting — no draft-then-rewrite step. Forked from blader/humanizer and recalibrated with field research on how Indonesians actually type in chat (WhatsApp, Facebook, Reddit, Kaskus, Threads).
 
 ## Kenapa ada skill ini
 
@@ -16,7 +16,19 @@ Balasan chatbot AI punya pola yang mudah dikenali manusia Indonesia:
 - Langsung menjawab tanpa mengakui pesan user dulu (pola bot paling mudah dikenali)
 - Register pengumuman/bot CS untuk obrolan santai
 
-Skill ini mendeteksi 9 pola tersebut dan menulis ulang balasannya mengikuti pola chat natural.
+Skill ini mencegah 9 pola tersebut lewat cek cepat sebelum kirim — balasan langsung diucapkan dengan pola chat natural.
+
+## Cara ngetest
+
+Pasang skill sebagai voice/persona chatbot, lalu **ajak ngobrol biasa** — tanya sesuatu, komplain, bercanda. Kalau balasannya terdengar seperti manusia ngetik (pendek, ada reaksinya, singkatannya natural), skill-nya bekerja. Kalau masih terdengar seperti template CS, ada pola yang lolos.
+
+Contoh bedanya:
+
+**Tanpa skill** (pola AI):
+> Tentu! Untuk mengatasi masalah koneksi tersebut, ada beberapa langkah yang bisa Anda coba. Pertama, periksa koneksi internet Anda. Kedua, restart aplikasi. Ketiga, hapus cache aplikasi. Semoga membantu! Apakah ada lagi yang bisa saya bantu?
+
+**Dengan skill** (langsung keluar begini, bukan hasil rewrite):
+> wah nyebelin ya kalo koneksinya putus-putus. coba restart aplikasinya dulu kak, biasanya langsung beres. kalo masih juga, hapus cache-nya
 
 ## Riset di baliknya
 
@@ -76,24 +88,14 @@ ln -s "$(pwd)/humanizer-chatbot-id" ~/workspace/skills/humanizer-chatbot-id
 
 ## Cara pakai
 
-Setelah terpasang, instruksikan agen/bot untuk memakai skill `humanizer-chatbot-id` setiap menulis atau mereview balasan chatbot berbahasa Indonesia. Contoh instruksi ke agen:
+Skill ini adalah **voice/persona**, bukan filter rewrite. Setelah terpasang, muat sebagai instruksi suara chatbot — setiap balasan langsung mengikuti pola chat natural. Contoh instruksi ke agen:
 
-> Setiap menulis balasan chatbot, terapkan skill humanizer-chatbot-id: deteksi pola AI pada draf balasan, tulis ulang mengikuti pola chat natural Indonesia, kembalikan hanya teks final.
+> Muat skill humanizer-chatbot-id sebagai suara default kamu. Setiap balasan langsung terdengar seperti manusia yang sedang chat Indonesia: pendek, ada reaksinya, singkatan natural. Cek pola AI sebelum kirim.
 
 Dua mode output:
 
-- **Default:** hanya teks balasan final, siap kirim. Tanpa penjelasan.
-- **Mode review:** draf + daftar pola yang ditemukan + versi final.
-
-## Contoh
-
-**Sebelum** (pola AI):
-> Tentu! Untuk mengatasi masalah tersebut, ada beberapa langkah yang bisa Anda coba. Pertama, periksa koneksi internet Anda. Kedua, restart aplikasi. Ketiga, hapus cache. Semoga membantu! Ada lagi yang bisa saya bantu?
-
-**Sesudah:**
-> wah nyebelin ya kalo kekunci gini. coba cek koneksinya dulu kak
->
-> kalo masih error, restart aplikasinya aja. masih juga? hapus cache + update ke versi terbaru
+- **Default:** balas seperti chatbot biasa — hanya isi percakapan. Tanpa penjelasan, tanpa meta-komentar soal skill ini.
+- **Mode review (development/testing):** draf balasan + daftar pola AI yang dicegah + versi final yang dikirim.
 
 ## Batasan
 
