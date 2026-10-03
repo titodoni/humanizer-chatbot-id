@@ -47,9 +47,38 @@ references/
   gaya-threads-indonesia.md       # Threads
 ```
 
+## Instalasi
+
+```bash
+# 1. Clone repo
+git clone https://github.com/titodoni/humanizer-chatbot-id.git
+
+# 2. Pasang ke direktori skills milik platform AI kamu (pilih salah satu):
+
+# Claude Code
+mkdir -p ~/.claude/skills
+ln -s "$(pwd)/humanizer-chatbot-id" ~/.claude/skills/humanizer-chatbot-id
+
+# OpenCode
+mkdir -p ~/.config/opencode/skills
+ln -s "$(pwd)/humanizer-chatbot-id" ~/.config/opencode/skills/humanizer-chatbot-id
+
+# Muse (workspace)
+ln -s "$(pwd)/humanizer-chatbot-id" ~/workspace/skills/humanizer-chatbot-id
+
+# Kalau tidak mau symlink, copy biasa juga bisa:
+# cp -r humanizer-chatbot-id ~/.claude/skills/
+```
+
+**Verifikasi:** buka `humanizer-chatbot-id/SKILL.md` — di baris paling atas frontmatter harus ada `name: humanizer-chatbot-id`. Kalau platform kamu punya perintah daftar skills, pastikan nama itu muncul.
+
+**Tanpa platform skills:** copy seluruh isi `SKILL.md` ke system prompt / custom instructions chatbot kamu. File `references/` bersifat opsional tapi dianjurkan — tanpa itu, pola Indonesianya tetap jalan dari SKILL.md, hanya contoh detailnya berkurang.
+
 ## Cara pakai
 
-Skill ini berformat [Agent Skills](https://agentskills.io) — letakkan folder repo (atau symlink) di direktori skills milik agen AI kamu (mis. `~/.agents/skills/`, workspace skills Muse/OpenCode, dsb.), lalu instruksikan agen untuk memakai skill `humanizer-chatbot-id` setiap menulis atau mereview balasan chatbot.
+Setelah terpasang, instruksikan agen/bot untuk memakai skill `humanizer-chatbot-id` setiap menulis atau mereview balasan chatbot berbahasa Indonesia. Contoh instruksi ke agen:
+
+> Setiap menulis balasan chatbot, terapkan skill humanizer-chatbot-id: deteksi pola AI pada draf balasan, tulis ulang mengikuti pola chat natural Indonesia, kembalikan hanya teks final.
 
 Dua mode output:
 
